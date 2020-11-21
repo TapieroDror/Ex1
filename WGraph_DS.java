@@ -11,9 +11,187 @@ import java.util.Iterator;
 
 public class WGraph_DS implements weighted_graph {
 	private HashMap<Integer, node_info> graph;
-	private HashMap<Integer, edge_data> edges;
+	private HashMap<Integer, Edge> edges;
 	private int numOfEdges;
 	private int MC;
+	public class NodeInfo implements node_info {
+
+		private int key;
+		private String info;
+		private double tag;
+		private int parent;
+
+		/**
+		 * this function build a new NodeInfo
+		 * @param key
+		 */
+		public NodeInfo(int key) {
+			super();
+			this.key = key;
+			this.info = "white";
+			this.tag = Double.MAX_VALUE;
+			this.parent=-1;
+
+		}
+
+		/**
+		 * this function build a new NodeInfo
+		 */
+		public NodeInfo() {
+			super();
+			this.key = (int) (Math.random() * Integer.MAX_VALUE);
+			this.info = "white";
+			this.tag = Double.MAX_VALUE;
+			this.parent=-1;
+
+		}
+
+		/**
+		 * this function build a new NodeInfo
+		 * @param node
+		 */
+		public NodeInfo(node_info node) {
+			this.key = node.getKey();
+			this.info = node.getInfo();
+			this.tag = node.getTag();
+			this.parent=-1;
+		}
+
+		/**
+		 * this function return the key of the node
+		 *@return key
+		 */
+		@Override
+		public int getKey() {
+
+			return key;
+		}
+		/**
+		 * this function return the tag of the node
+		 *@return tag
+		 */
+		@Override
+		public double getTag() {
+
+			return tag;
+		}
+
+		/**
+		 * this function set the tag of the node
+		 *@param t
+		 */
+		@Override
+		public void setTag(double t) {
+			this.tag = t;
+
+		}
+		
+		/**
+		 * this function return the info of the node
+		 *@return info
+		 */
+		@Override
+		public String getInfo() {
+			return this.info;
+		}
+
+		/**
+		 * this function set the info of the node
+		 *@param s
+		 */
+		@Override
+		public void setInfo(String s) {
+			this.info = s;
+
+		}
+		/**
+		 * this function return the parent of the node
+		 * @return parent
+		 */
+		public int getParent() {
+			return this.parent;
+		}
+		/**
+		 * this function set the parent of the node
+		 * @param p
+		 */
+		public void setParent(int p) {
+			this.parent = p;
+
+		}
+
+	}
+	public class Edge{
+		private HashMap<node_info, Double> neighbors;
+
+		/**
+		 * this function build a new edge
+		 */
+		public Edge() {
+			super();
+			this.neighbors = new HashMap<>();
+		}
+
+		/**
+		 * this function check if the node have a neighbor Ni
+		 * return true if yes false if not.
+		 * @param Ni
+		 * @return true or false
+		 */
+		
+		public boolean hasNi(node_info Ni) {
+			if (neighbors.containsKey(Ni))
+				return true;
+			return false;
+		}
+
+		/**
+		 * this function return the weight of the neighbor Ni
+		 * if he dose not exist the function return false
+		 *@param Ni
+		 *@return neighbors.get(Ni) or -1
+		 */
+		
+		public double getWeight(node_info Ni) {
+			if (hasNi(Ni))
+				return neighbors.get(Ni);
+			return -1;
+		}
+
+		/**
+		 *this function return all the neighbors
+		 *@return neighbors.keySet()
+		 */
+		
+		public Collection<node_info> getNi() {
+			return neighbors.keySet();
+		}
+
+		/**
+		 * this function remove the neighbor Ni
+		 *@param Ni
+		 *
+		 */
+		
+		public void removeNi(node_info Ni) {
+			if (!hasNi(Ni))
+				return;
+			neighbors.remove(Ni);
+
+		}
+
+		/**
+		 * this function add a new neighbor Ni
+		 *@param Ni, weight
+		 *
+		 */
+		
+		public void addNi(node_info Ni, double weight) {
+			neighbors.put(Ni, weight);
+		}
+
+	}
+
 	/**
 	 *this function build a new WGraph_DS
 	 *@param
@@ -41,7 +219,7 @@ public class WGraph_DS implements weighted_graph {
 	 *@param
 	 *@return edges
 	 */
-	public HashMap<Integer, edge_data> getEdges() {
+	public HashMap<Integer, Edge> getEdges() {
 		return edges;
 	}
 	/**

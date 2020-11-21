@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
-
+import ex1.WGraph_DS.NodeInfo;;
 public class WGraphAlgo implements weighted_graph_algorithms {
 	private weighted_graph graph;
 
@@ -57,7 +57,7 @@ public class WGraphAlgo implements weighted_graph_algorithms {
 			clone.addNode(runner.getKey());
 		}
 		for (int p1 : ((WGraph_DS) graph).getEdges().keySet()) {
-			for (edge_data neis : ((WGraph_DS) graph).getEdges().values()) {
+			for (ex1.WGraph_DS.Edge neis : ((WGraph_DS) graph).getEdges().values()) {
 				for (node_info p2 : neis.getNi()) {
 					if (((WGraph_DS) graph).hasEdge(p2.getKey(), p1)) {
 						clone.connect(p2.getKey(), p1, graph.getEdge(p2.getKey(), p1));
